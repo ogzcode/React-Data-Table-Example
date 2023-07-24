@@ -4,6 +4,8 @@ import { useState, useEffect, useMemo } from 'react'
 import { useGlobalFilter, useTable, useSortBy, usePagination } from 'react-table'
 import { COLUMNS } from './data/columns.js'
 
+import { read, utils, writeFile } from 'xlsx'
+
 function App() {
   const [data, setData] = useState([])
 
@@ -29,12 +31,22 @@ function App() {
 
   const { globalFilter } = state;
 
+  const handleExport = () => {
+    const wb = utils.book_new();
+    const ws = utils.json_to_sheet(data);
+    utils.sheet_add_aoa(ws, [COLUMNS.map((column) => column.Header)]);
+    utils.sheet_add_json(ws, data, { skipHeader: true, origin: 'A2' });
+    utils.book_append_sheet(wb, ws, 'Sheet1');
+    writeFile(wb, 'export.csv');
+  }
+
   return (
     <div className='min-h-screen overflow-hidden flex justify-center items-center'>
-      <div className='p-8 rounded-md shadow-sm border border-slate-50 w-3/4'>
-        <div className="flex p-2 mb-4 rounded border border-slate-50 justify-between items-center">
+      <div className='p-8 rounded-md shadow border border-slate-50 w-3/4'>
+        <div className="flex p-2 mb-4 rounded border border-slate-200 justify-between items-center">
           <div>
             <button className='bg-teal-500 px-6 py-1 text-white rounded-sm'>Add New</button>
+            <button className="bg-sky-500 px-6 py-1 text-white rounded-sm ml-4" onClick={() => handleExport()}>Export</button>
           </div>
           <div>
             <input
@@ -42,7 +54,7 @@ function App() {
               value={globalFilter || ''}
               onChange={(e) => setGlobalFilter(e.target.value)}
               placeholder='Search...'
-              className='border border-slate-50 rounded-sm px-2 py-1 outline-0'
+              className='border border-slate-200 rounded-sm px-2 py-1 outline-0'
             />
           </div>
         </div>
@@ -87,8 +99,8 @@ function App() {
           <tfoot>
             <tr className='text-center'>
               <td colSpan={columns.length} className='px-4 pt-4 text-slate-500 text-sm'>
-                <button onClick={() => previousPage()} className='px-2 py-1 rounded-sm border border-slate-50 mr-2 w-1/6'>Previous</button>
-                <button onClick={() => nextPage()} className='px-2 py-1 rounded-sm border border-slate-50 w-1/6'>Next</button>
+                <button onClick={() => previousPage()} className='px-2 py-1 rounded-sm border border-slate-200 mr-2 w-1/6 text-slate-800'>Previous</button>
+                <button onClick={() => nextPage()} className='px-2 py-1 rounded-sm border border-slate-200 w-1/6 text-slate-800'>Next</button>
               </td>
             </tr>
           </tfoot>
