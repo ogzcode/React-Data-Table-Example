@@ -1,6 +1,6 @@
 # React Data Table Example
 
-Bu proje, ShadowCn, TanStack Table ve Mirage JS kullanılarak oluşturulmuş bir dinamik fetch tablosu örneğidir.
+Bu proje, Shadcn, TanStack Table ve Mirage JS kullanılarak oluşturulmuş bir dinamik fetch tablosu örneğidir.
 
 ## Proje Hakkında
 
@@ -16,15 +16,8 @@ Proje dosyalarını bilgisayarınıza indirin ve aşağıdaki adımları izleyin
 
 ## Kullanım
 
-Proje başarıyla başlatıldıktan sonra, tarayıcınızda `http://localhost:3000` adresine gidin. Veri tablosu, sahte API'den alınan verileri görüntüleyecektir.
+Proje başarıyla başlatıldıktan sonra, tarayıcınızda `http://localhost:5173` adresine gidin. Veri tablosu, sahte API'den alınan verileri görüntüleyecektir.
 
-## GitHub Pages ile Yayınlama
+## Deployment
 
-Bu proje GitHub Pages üzerinde yayınlanmıştır. Proje dosyalarını GitHub'a yükledikten sonra aşağıdaki adımları izleyin:
-
-1. GitHub deposuna gidin: [Proje Deposu](https://github.com/KullaniciAdi/React-Data-Table-Example)
-2. Ayarlar (Settings) sekmesine gidin.
-3. GitHub Pages bölümünde, "Source" (Kaynak) olarak "main" veya "master" branch'ini seçin.
-4. Yayınlanan sayfanın URL'sini alın ve paylaşın.
-
-Bu şekilde, projeniz GitHub Pages üzerinde yayınlanacak ve herkes tarafından erişilebilir hale gelecektir.
+Bu proje GitHub Pages üzerinde yayınlanmıştır.
