@@ -23,13 +23,12 @@ export function makeServer({ environment = "test" } = {}) {
         let columnFilters = JSON.parse(request.queryParams.columnFilters || "[]")
         let pagination = JSON.parse(request.queryParams.pagination || "{}")
 
-        console.log(sorting)
 
         let countries = schema.countries.all().models
 
         columnFilters.forEach(filter => {
           countries = countries.filter(country => {
-            return country[filter.id].toString().includes(filter.value)
+            return country[filter.id].toString().toLowerCase().includes(filter.value.toLowerCase())
           })
         })
 
