@@ -1,15 +1,30 @@
 /* eslint-disable react/prop-types */
 
-import { ArrowUpDown, ArrowDown, ArrowUp } from "lucide-react"
+import { ArrowUpDown, ArrowDown, ArrowUp, ChevronRight, ChevronDown } from "lucide-react"
 import { Input } from "@/components/ui/input";
 import { Region } from "@/components/base/RegionFilter";
 import { regionOptions } from "@/lib/utils";
+
 
 export const columns = [
     {
         accessorKey: "il_adi",
         header: "City Name",
-        cell: ({ row }) => <div className="flex items-center gap-2">{row.getValue("il_adi")}</div>,
+        cell: ({ row }) => row.getCanExpand() ? (
+            <div className="flex items-center">
+                <button {...{
+                    onClick: row.getToggleExpandedHandler(),
+                    style: { cursor: 'pointer' },
+                }}
+                className="text-slate-500 hover:text-slate-700 mr-2"
+                >
+                    {row.getIsExpanded() ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                </button>
+                {row.original.il_adi}
+            </div>
+        ) : (
+            row.original.il_adi
+        ),
         filter: (props) => (
             <Input
                 value={props.column.getFilterValue() || ""}
@@ -64,7 +79,7 @@ export const columns = [
     {
         accessorKey: "nufus",
         header: "Population",
-        cell: ({ row }) => row.getValue("nufus").toLocaleString(),
+        cell: ({ row }) => row.getValue("nufus"),
     },
     {
         accessorKey: "bolge",
@@ -79,7 +94,7 @@ export const columns = [
     {
         accessorKey: "yuzolcumu",
         header: "Area (km²)",
-        cell: ({ row }) => row.getValue("yuzolcumu").toLocaleString(),
+        cell: ({ row }) => row.getValue("yuzolcumu"),
     },
     {
         accessorKey: "nufus_artisi",
@@ -94,7 +109,7 @@ export const columns = [
     {
         accessorKey: "erkek_nufus",
         header: "Male Population",
-        cell: ({ row }) => row.getValue("erkek_nufus").toLocaleString(),
+        cell: ({ row }) => row.getValue("erkek_nufus"),
     },
     {
         accessorKey: "kadin_nufus_yuzde",
@@ -104,11 +119,57 @@ export const columns = [
     {
         accessorKey: "kadin_nufus",
         header: "Female Population",
-        cell: ({ row }) => row.getValue("kadin_nufus").toLocaleString(),
+        cell: ({ row }) => row.getValue("kadin_nufus"),
     },
     {
         accessorKey: "nufus_yuzdesi_genel",
         header: "General Population (%)",
         cell: ({ row }) => row.getValue("nufus_yuzdesi_genel"),
     }
+];
+
+
+export const districtsColumns = [
+    {
+        accessorKey: "plaka_kodu",
+        header: "Plate Code",
+        cell: ({ row }) => row.getValue("plaka_kodu"),
+    },
+    {
+        accessorKey: "ilce_kodu",
+        header: "District Code",
+        cell: ({ row }) => row.getValue("ilce_kodu"),
+    },
+    {
+        accessorKey: "il_adi",
+        header: "City Name",
+        cell: ({ row }) => row.getValue("il_adi"),
+    },
+    {
+        accessorKey: "ilce_adi",
+        header: "District Name",
+        cell: ({ row }) => row.getValue("ilce_adi"),
+        filter: (props) => (
+            <Input
+                value={props.column.getFilterValue() || ""}
+                onChange={(e) => props.column.setFilterValue(e.target.value)}
+                placeholder="Filter City Name..."
+            />
+        ),
+    },
+    {
+        accessorKey: "nufus",
+        header: "Population",
+        cell: ({ row }) => row.getValue("nufus"),
+    },
+    {
+        accessorKey: "erkek_nufus",
+        header: "Male Population",
+        cell: ({ row }) => row.getValue("erkek_nufus"),
+    },
+    {
+        accessorKey: "kadin_nufus",
+        header: "Female Population",
+        cell: ({ row }) => row.getValue("kadin_nufus"),
+    },
 ];
